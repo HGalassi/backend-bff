@@ -2,16 +2,14 @@ package com.heitor.backend_bff.infrastructure.config;
 
 import com.heitor.backend_bff.application.use_cases.application.GetApplication;
 import com.heitor.backend_bff.application.use_cases.application.CreateApplication;
-import com.heitor.backend_bff.infrastructure.adapter.AppConfigSessionAdapter;
-import com.heitor.backend_bff.infrastructure.adapter.ApplicationAdapter;
-import com.heitor.backend_bff.infrastructure.adapter.EnvironmentAdapter;
+import com.heitor.backend_bff.infrastructure.adapter.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.appconfig.AppConfigClient;
 @Configuration
-public class AwsConfig {
+public class BeanConfiguration {
 
     @Value("${aws.roleArn}")
     private String roleArn;
@@ -24,6 +22,19 @@ public class AwsConfig {
     @Bean
     public EnvironmentAdapter environmentAdapter() {
         return new EnvironmentAdapter(appConfigClient());
+    }
+    @Bean
+    public DeploymentStrategyAdapter deploymentStrategyAdapter() {
+        return new DeploymentStrategyAdapter(appConfigClient());
+    }
+    @Bean
+    public ConfigurationProfileDeploymentAdapter configurationProfileDeploymentAdapter() {
+        return new ConfigurationProfileDeploymentAdapter(appConfigClient());
+    }
+
+    @Bean
+    public ConfigurationProfileAdapter configurationProfileAdapter() {
+        return new ConfigurationProfileAdapter(appConfigClient());
     }
     @Bean
     public AppConfigClient appConfigClient() {
