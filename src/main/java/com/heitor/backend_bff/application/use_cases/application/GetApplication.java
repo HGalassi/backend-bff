@@ -13,7 +13,10 @@ public class GetApplication {
         this.appConfigAdapter = appConfigAdapter;
     }
 
-    public List<Application> execute(String configId) {
+    public Application execute(String configId) {
+        return appConfigAdapter.getApplicationById(configId);
+    }
+    public List<Application> execute() {
         return appConfigAdapter.getApplications();
     }
 }

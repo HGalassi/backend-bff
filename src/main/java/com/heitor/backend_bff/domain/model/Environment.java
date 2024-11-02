@@ -4,7 +4,15 @@ public class Environment {
     private String id;
     private String name;
 
-    // Getters and setters
+    private String applicationId;
+    public String getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(String applicationId) {
+        this.applicationId = applicationId;
+    }
+
     public String getId() {
         return id;
     }

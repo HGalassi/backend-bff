@@ -11,7 +11,7 @@ public class GetEnvironment {
         this.environmentAdapter = environmentAdapter;
     }
 
-    public Environment execute(String environmentId) {
-        return environmentAdapter.getEnvironment(environmentId);
+    public Environment execute(String environmentId, String applicationId) {
+        return environmentAdapter.getEnvironment(environmentId,applicationId);
     }
 }

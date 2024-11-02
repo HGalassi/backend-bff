@@ -20,6 +20,19 @@ public class ApplicationAdapter {
         this.appConfigSessionAdapter = appConfigSessionAdapter;
     }
 
+    public Application getApplicationById(String applicationId) {
+        logger.info("Nome da sessão: " + appConfigSessionAdapter.getSessionName());
+        GetApplicationRequest request = GetApplicationRequest.builder()
+                .applicationId(applicationId)
+                .build();
+        GetApplicationResponse response = appConfigClient.getApplication(request);
+
+        Application app = new Application();
+        app.setId(response.id());
+        app.setName(response.name());
+        return app;
+    }
+
     public List<Application> getApplications() {
         logger.info("Nome da sessão: " + appConfigSessionAdapter.getSessionName());
         ListApplicationsRequest request = ListApplicationsRequest.builder().build();
@@ -39,8 +52,6 @@ public class ApplicationAdapter {
                 .build();
 
         CreateApplicationResponse response = appConfigClient.createApplication(request);
-
-        // Lógica adicional para lidar com a resposta, se necessário
         appConfig.setId(response.id());
     }
 }

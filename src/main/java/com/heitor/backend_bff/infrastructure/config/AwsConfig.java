@@ -4,6 +4,7 @@ import com.heitor.backend_bff.application.use_cases.application.GetApplication;
 import com.heitor.backend_bff.application.use_cases.application.CreateApplication;
 import com.heitor.backend_bff.infrastructure.adapter.AppConfigSessionAdapter;
 import com.heitor.backend_bff.infrastructure.adapter.ApplicationAdapter;
+import com.heitor.backend_bff.infrastructure.adapter.EnvironmentAdapter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +21,10 @@ public class AwsConfig {
         appConfigSessionAdapter.createSession();
         return appConfigSessionAdapter;
     }
-
+    @Bean
+    public EnvironmentAdapter environmentAdapter() {
+        return new EnvironmentAdapter(appConfigClient());
+    }
     @Bean
     public AppConfigClient appConfigClient() {
         return AppConfigClient.builder().build();

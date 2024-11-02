@@ -12,18 +12,23 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class AppConfigController {
+public class ApplicationController {
 
     private final GetApplication getAppConfig;
     private final CreateApplication createAppConfig;
 
-    public AppConfigController(GetApplication getAppConfig, CreateApplication createAppConfig) {
+    public ApplicationController(GetApplication getAppConfig, CreateApplication createAppConfig) {
         this.getAppConfig = getAppConfig;
         this.createAppConfig = createAppConfig;
     }
 
+    @GetMapping("/applications")
+    public List<Application> getAll() {
+        return getAppConfig.execute();
+    }
+
     @GetMapping("/applications/{applicationId}")
-    public List<Application> getAppConfig(@PathVariable String applicationId) {
+    public Application getAppById(@PathVariable String applicationId) {
         return getAppConfig.execute(applicationId);
     }
 
